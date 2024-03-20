@@ -868,7 +868,7 @@ GLSL_DEFINE(texMat3, GLSL_C_MAT4(NV_IGRAPH_XF_XFCTX_T3MAT))
     mstring_append_fmt(header,
 
             "  screen_pos /= w;\n"
-            "  screen_pos /= scale;
+            "  screen_pos /= scale;\n"
             "  vec2 pixel = floor(screen_pos);\n"
             "  vec2 subpixel = screen_pos - pixel;\n"
             "  vec2 round_down = vec2(lessThan(subpixel, vec2(0.5625)));\n"

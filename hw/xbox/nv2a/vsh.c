@@ -828,13 +828,12 @@ void vsh_translate(uint16_t version,
         "  vtx_inv_w_flat = vtx_inv_w;\n"
     );
 
-    mstring_append_fmt(body,
+    mstring_append(body,
         /* the shaders leave the result in screen space, while
          * opengl expects it in clip space.
          */
-        "  oPos.xy = 2.0 * adjust_pixel_center(oPos.xy, %d) / surfaceSize - vec2(1.0);\n"
-        "  oPos.y *= -1;\n",
-        nv2a_get_surface_scale_factor()
+        "  oPos.xy = 2.0 * adjust_pixel_center(oPos.xy, 1.0) / surfaceSize - vec2(1.0);\n"
+        "  oPos.y *= -1;\n"
     );
     if (z_perspective) {
         mstring_append(body, "  oPos.z = oPos.w;\n");

@@ -862,7 +862,7 @@ GLSL_DEFINE(texMat3, GLSL_C_MAT4(NV_IGRAPH_XF_XFCTX_T3MAT))
             "  if (w == 0.0 || isinf(w)) {\n"
             "    w = 1.0;\n"
             "  }\n"
-            "  vec2 scale = "
+            "  float scale = "
             );
     mstring_append_fmt(header, "%d;\n", nv2a_get_surface_scale_factor());
     mstring_append_fmt(header,

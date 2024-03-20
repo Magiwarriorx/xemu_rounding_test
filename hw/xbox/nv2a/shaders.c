@@ -865,9 +865,11 @@ GLSL_DEFINE(texMat3, GLSL_C_MAT4(NV_IGRAPH_XF_XFCTX_T3MAT))
             "  screen_pos /= w;\n"
             "  vec2 pixel = floor(screen_pos);\n"
             "  vec2 subpixel = screen_pos - pixel;\n"
-            "  vec2 round_down = vec2(lessThan(subpixel, vec2(0.5625)));\n"
+            "  float threshold = 0.5625 * w;\n"
+            "  threshold = threshold - floor(threshold);\n"
+            "  vec2 round_down = vec2(lessThan(subpixel, vec2(threshold)));\n"
 
-            "  subpixel -= vec2(0.0625);\n"
+            "  subpixel -= vec2(0.0625 * w);\n"
 
             "  vec2 bias = vec2(0.002);\n"
             "  subpixel += mix(bias, -bias, round_down);\n"

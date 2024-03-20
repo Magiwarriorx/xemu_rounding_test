@@ -864,7 +864,7 @@ GLSL_DEFINE(texMat3, GLSL_C_MAT4(NV_IGRAPH_XF_XFCTX_T3MAT))
             "  }\n"
             "  vec2 scale = "
             );
-    mstring_append_fmt(header, "%d\n", nv2a_get_surface_scale_factor());
+    mstring_append_fmt(header, "%d;\n", nv2a_get_surface_scale_factor());
     mstring_append_fmt(header,
 
             "  screen_pos /= w;\n"

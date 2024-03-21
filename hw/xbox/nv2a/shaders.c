@@ -874,7 +874,7 @@ GLSL_DEFINE(texMat3, GLSL_C_MAT4(NV_IGRAPH_XF_XFCTX_T3MAT))
             "  subpixel += mix(bias, -bias, round_down);\n"
             
 
-            "  return w * (round((pixel + subpixel)*invViewport))/invViewport;\n"
+            "  return w * (round((pixel + subpixel)*surfaceSize))/surfaceSize;\n"
             "}\n"
             );
 

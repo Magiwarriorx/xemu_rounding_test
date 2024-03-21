@@ -864,21 +864,31 @@ GLSL_DEFINE(texMat3, GLSL_C_MAT4(NV_IGRAPH_XF_XFCTX_T3MAT))
             "  }\n"
             "  float scale = "
             );
-    mstring_append_fmt(header, "%d;\n", nv2a_get_surface_scale_factor());
+    mstring_append_fmt(header, "%d;\n float pixeloffset = %f;\n", nv2a_get_surface_scale_factor(),(9.0/16.0 - 0.5));
     mstring_append_fmt(header,
             "  screen_pos /= w;\n"
             "  vec2 pixel = floor(screen_pos);\n"
             "  vec2 subpixel = screen_pos - pixel;\n"
-            "  vec2 round_down = vec2(lessThan(subpixel, vec2(0.5625)));\n"
+            "  vec2 round_down = vec2(lessThan(subpixel, vec2(0.5 + pixeloffset)));\n"
 
-            "  subpixel -= vec2(0.0625);\n"
+            "  subpixel -= vec2(pixeloffset);\n"
 
-            "  vec2 bias = vec2(0.002);\n"
-            "  subpixel += mix(bias, -bias, round_down);\n"
-
+            /*"  vec2 bias = vec2(0.002);\n"
+            *"  subpixel += mix(bias, -bias, round_down);\n"
+            */
+        );
+    if (nv2a_get_surface_scale_factor()<=1){
+            mstring_append_fmt(header,
             "  return w * (pixel + subpixel);\n"
             "}\n"
             );
+    }
+    else{
+            mstring_append_fmt(header,
+            "  return w * (round((pixel + subpixel)*scale))/scale;\n"
+            "}\n"
+            );
+    }
 
     MString *body = mstring_from_str("void main() {\n");
 

@@ -862,10 +862,7 @@ GLSL_DEFINE(texMat3, GLSL_C_MAT4(NV_IGRAPH_XF_XFCTX_T3MAT))
             "  if (w == 0.0 || isinf(w)) {\n"
             "    w = 1.0;\n"
             "  }\n"
-            "  float scale = "
-            );
-    mstring_append_fmt(header, "%d;\n float pixeloffset = %f;\n", nv2a_get_surface_scale_factor(),(9.0/16.0 - 0.5));
-    mstring_append_fmt(header,
+            "  float pixeloffset = 0.0625;\n"
             "  screen_pos /= w;\n"
             "  vec2 pixel = floor(screen_pos);\n"
             "  vec2 subpixel = screen_pos - pixel;\n"
@@ -873,11 +870,11 @@ GLSL_DEFINE(texMat3, GLSL_C_MAT4(NV_IGRAPH_XF_XFCTX_T3MAT))
 
             "  subpixel -= vec2(pixeloffset);\n"
 
-            /*"  vec2 bias = vec2(0.002);\n"
-            *"  subpixel += mix(bias, -bias, round_down);\n"
-            */
+            "  vec2 bias = vec2(0.002);\n"
+            "  subpixel += mix(bias, -bias, round_down);\n"
+            
 
-            "  return w * (round((pixel + subpixel)*scale))/scale;\n"
+            "  return w * (round((pixel + subpixel)*invViewport))/invViewport;\n"
             "}\n"
             );
 

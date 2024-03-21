@@ -876,19 +876,10 @@ GLSL_DEFINE(texMat3, GLSL_C_MAT4(NV_IGRAPH_XF_XFCTX_T3MAT))
             /*"  vec2 bias = vec2(0.002);\n"
             *"  subpixel += mix(bias, -bias, round_down);\n"
             */
-        );
-    if (nv2a_get_surface_scale_factor()<=1){
-            mstring_append_fmt(header,
-            "  return w * (pixel + subpixel);\n"
-            "}\n"
-            );
-    }
-    else{
-            mstring_append_fmt(header,
+
             "  return w * (round((pixel + subpixel)*scale))/scale;\n"
             "}\n"
             );
-    }
 
     MString *body = mstring_from_str("void main() {\n");
 
